@@ -1,0 +1,78 @@
+h1. Отчёт по 1 лабораторной работе (Тищенко Артём)
+
+*Тищенко Артём, гр. 5130201/20102*
+
+
+h1. Задание
+
+Реализовать аналог unix команды ls. Команда ls выводит список файлов в указанной директории. 
+
+h1. Ход работы
+
+Предварительно были установлены OpenJDK версии 22.0.2 и Maven версии 3.9.9. Проверить версии можно с помощью команд:
+<pre><code class="shell">
+  java --version
+  mvn --version
+</code></pre>
+
+# Для создания проекта использовалась следующая команда:
+<pre><code class="shell">
+  mvn archetype:generate -DgroupId=ru.spbstu.telematics.java -DartifactId=${ProjectName} -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+</code></pre>
+# Далее, согласно комментарию преподавателя, в pom.xml была заменена зависимость junit и добавлены библиотеки commons-io и commons-math
+<pre>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+	  <groupId>commons-io</groupId>
+          <artifactId>commons-io</artifactId>
+          <version>2.5</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-math3</artifactId>
+        <version>3.6</version> 
+    </dependency>
+</pre>
+# В файле java_labs\lab1\src\main\java\ru\spbstu\telematics\java\App.java был написан основной код, содержащий логику команды ls.
+# Для успешной компиляции проекта и создания jar файла, в pom.xml были добавлены строки с указанием манифеста
+<pre>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>ru.spbstu.telematics.java.App</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</pre>
+# Для компиляции и запуска программы использовались следующие команды:
+<pre><code class="shell">
+  mvn clean package
+  # Можно явно указать директорию (по умолчанию .)
+  java -jar target/lab1-1.0-SNAPSHOT.jar path/to/directory
+</code></pre>
+
+h1. Результаты работы программы
+
+На рисунке ниже представлен результат запуска программы без указания пути. По умолчанию программа выводит все файлы и директории внутри текущей директории.
+!example1.png!
+
+На втором рисунке представлен результат запуска программа с указанием пути до файла, а не до директории. В этом случае программа просто выводит относительный путь до файла, симулируя поведение unix команды ls.
+!example2.png!
+
+h1. Исходный код
+
+Ссылка на репозиторий: [[https://git.tishenko.dev/univer-5th-semester/java_labs]]
