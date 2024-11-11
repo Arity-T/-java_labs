@@ -75,4 +75,4 @@ h1. Результаты работы программы
 
 h1. Исходный код
 
-Ссылка на репозиторий: [[https://git.tishenko.dev/univer-5th-semester/java_labs]]
+Ссылка на репозиторий: [[https://github.com/Arity-T/java_labs]]
