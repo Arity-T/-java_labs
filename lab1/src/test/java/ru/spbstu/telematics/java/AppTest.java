@@ -1,5 +1,8 @@
 package ru.spbstu.telematics.java;
 
+import java.util.List;
+import java.nio.file.Paths;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -28,11 +31,29 @@ public class AppTest
         return new TestSuite( AppTest.class );
     }
 
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
+    public void testFileExists() {
+        List<String> result = App.listFiles("test_dir/file1.txt");
+        assertEquals(1, result.size());
+        assertEquals(Paths.get("test_dir", "file1.txt").toString(), result.get(0));
+    }
+
+    public void testFileDoesNotExist() {
+        List<String> result = App.listFiles("test_dir/notexisting.txt");
+        assertEquals(1, result.size());
+        assertEquals("Директория или файл не существует или путь указан неверно.", result.get(0));
+    }
+
+    public void testDirectoryExists() {
+        List<String> result = App.listFiles("test_dir");
+        assertEquals(1, result.size());
+        assertEquals("file1.txt", result.get(0));
+    }
+
+    public void testPathDoesNotExist() {
+        List<String> result = App.listFiles("notexisting");
+        System.out.println(System.getProperty("user.dir"));
+        System.out.println("FROM TEST: " + result.get(0));
+        assertEquals(1, result.size());
+        assertEquals("Директория или файл не существует или путь указан неверно.", result.get(0));
     }
 }
