@@ -58,4 +58,17 @@ class MyTreeSetTests {
         assertThrows(NullPointerException.class, () -> myTreeSet.remove(null));
         assertThrows(NullPointerException.class, () -> treeSet.remove(null));
     }
+
+    @Test
+    void testSize() {
+        assertEquals(myTreeSet.size(), treeSet.size());
+        treeSet.add(15);
+        myTreeSet.add(15);
+        assertEquals(myTreeSet.size(), treeSet.size());
+        treeSet.add(50);
+        myTreeSet.add(50);
+        assertEquals(myTreeSet.size(), treeSet.size());
+        assertEquals(myTreeSet.remove(50), treeSet.remove(50));
+        assertEquals(myTreeSet.size(), treeSet.size());
+    }
 }

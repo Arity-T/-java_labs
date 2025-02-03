@@ -14,9 +14,15 @@ public class MyTreeSet<E extends Comparable<E>> {
     }
 
     private Node root;
+    private int size;
 
     public MyTreeSet() {
         root = null;
+        size = 0;
+    }
+
+    public int size() {
+        return size;
     }
 
     public boolean add(E element) {
@@ -26,6 +32,7 @@ public class MyTreeSet<E extends Comparable<E>> {
 
         if (root == null) {
             root = new Node(element);
+            size++;
             return true;
         }
 
@@ -47,6 +54,7 @@ public class MyTreeSet<E extends Comparable<E>> {
             parentNode.right = newNode;
         }
 
+        size++;
         return true;
     }
 
@@ -72,6 +80,7 @@ public class MyTreeSet<E extends Comparable<E>> {
         }
         if (!contains(element)) return false;
         root = remove(root, element);
+        size--;
         return true;
     }
 
