@@ -49,4 +49,20 @@ public class MyTreeSet<E extends Comparable<E>> {
 
         return true;
     }
+
+    public boolean contains(E element) {
+        if (element == null) {
+            throw new NullPointerException("Нельзя добавить null в TreeSet!");
+        }
+        
+        return contains(root, element);
+    }
+    
+    private boolean contains(Node node, E element) {
+        if (node == null) return false;
+
+        int cmp = element.compareTo(node.value);
+        if (cmp == 0) return true;
+        return cmp < 0 ? contains(node.left, element) : contains(node.right, element);
+    }
 }
