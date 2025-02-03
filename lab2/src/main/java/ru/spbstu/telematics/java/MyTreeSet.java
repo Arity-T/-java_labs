@@ -20,6 +20,10 @@ public class MyTreeSet<E extends Comparable<E>> {
     }
 
     public boolean add(E element) {
+        if (element == null) {
+            throw new NullPointerException("Нельзя добавить null в TreeSet!");
+        }
+
         if (root == null) {
             root = new Node(element);
             return true;
