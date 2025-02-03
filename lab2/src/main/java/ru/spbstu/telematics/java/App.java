@@ -5,8 +5,8 @@ public class App
     public static void main( String[] args )
     {
         MyTreeSet<Integer> tree = new MyTreeSet<>();
-        tree.add(10);
-        tree.add(20);
-        tree.add(5);
+        System.out.println(tree.add(10));
+        System.out.println(tree.add(20));
+        System.out.println(tree.add(10));
     }
 }

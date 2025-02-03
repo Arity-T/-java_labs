@@ -19,10 +19,10 @@ public class MyTreeSet<E extends Comparable<E>> {
         root = null;
     }
 
-    public void add(E element) {
+    public boolean add(E element) {
         if (root == null) {
             root = new Node(element);
-            return;
+            return true;
         }
 
         Node currentNode = root;
@@ -31,7 +31,7 @@ public class MyTreeSet<E extends Comparable<E>> {
         while (currentNode != null) {
             int cmp = element.compareTo(currentNode.value);
             if (cmp == 0) {
-                return;
+                return false;
             } 
             parentNode = currentNode;
             currentNode = cmp < 0 ? currentNode.left : currentNode.right;
@@ -44,5 +44,7 @@ public class MyTreeSet<E extends Comparable<E>> {
         } else {
             parentNode.right = newNode;
         }
+
+        return true;
     }
 }
