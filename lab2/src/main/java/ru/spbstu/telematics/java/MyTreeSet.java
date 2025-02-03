@@ -1,7 +1,10 @@
 package ru.spbstu.telematics.java;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Stack;
 
-public class MyTreeSet<E extends Comparable<E>> {
+public class MyTreeSet<E extends Comparable<E>> implements Iterable<E> {
     // Класс для представления узла дерева
     private class Node {
         E value;
@@ -118,5 +121,43 @@ public class MyTreeSet<E extends Comparable<E>> {
             current = current.left;
         }
         return current;
+    }
+
+	@Override
+	public Iterator<E> iterator() {
+        return new MyTreeSetIterator();
+	}
+
+    private class MyTreeSetIterator implements Iterator<E> {
+        // На вершине стека всегда будет лежать наименьший элемент в дереве
+        Stack<Node> nodeStack = new Stack<>();
+
+        MyTreeSetIterator() {
+            pushAllLeftToStack(root);
+        }
+
+        void pushAllLeftToStack(Node current) {
+            if (current == null) return;
+            nodeStack.push(current);
+            pushAllLeftToStack(current.left);
+        }
+        
+		@Override
+		public boolean hasNext() {
+            return nodeStack.size() != 0;
+		}
+
+		@Override
+		public E next() {
+            if (!hasNext()) throw new NoSuchElementException();
+
+            Node minNode = nodeStack.pop();
+
+            if (minNode.right != null) {
+                pushAllLeftToStack(minNode.right);
+            }
+
+            return minNode.value;
+		}
     }
 }

@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.TreeSet;
 
 class MyTreeSetTests {
@@ -70,5 +72,28 @@ class MyTreeSetTests {
         assertEquals(myTreeSet.size(), treeSet.size());
         assertEquals(myTreeSet.remove(50), treeSet.remove(50));
         assertEquals(myTreeSet.size(), treeSet.size());
+    }
+
+    @Test
+    void testIterator() {
+        treeSet.add(15);
+        myTreeSet.add(15);
+        treeSet.add(250);
+        myTreeSet.add(250);
+        treeSet.add(50);
+        myTreeSet.add(50);
+        Iterator<Integer> itMyTreeSet = myTreeSet.iterator();
+        Iterator<Integer> itTreeSet = treeSet.iterator();
+
+        assertEquals(itMyTreeSet.hasNext(), itTreeSet.hasNext());
+        assertEquals(itMyTreeSet.next(), itTreeSet.next());
+        assertEquals(itMyTreeSet.hasNext(), itTreeSet.hasNext());
+        assertEquals(itMyTreeSet.next(), itTreeSet.next());
+        assertEquals(itMyTreeSet.hasNext(), itTreeSet.hasNext());
+        assertEquals(itMyTreeSet.next(), itTreeSet.next());
+        
+        assertEquals(itMyTreeSet.hasNext(), itTreeSet.hasNext());
+        assertThrows(NoSuchElementException.class, () -> itMyTreeSet.next());
+        assertThrows(NoSuchElementException.class, () -> itTreeSet.next());
     }
 }
