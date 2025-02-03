@@ -43,4 +43,19 @@ class MyTreeSetTests {
         assertThrows(NullPointerException.class, () -> myTreeSet.contains(null));
         assertThrows(NullPointerException.class, () -> treeSet.contains(null));
     }
+
+    @Test
+    void testRemove() {
+        assertEquals(myTreeSet.remove(15), treeSet.remove(15));
+        treeSet.add(15);
+        myTreeSet.add(15);
+        assertEquals(myTreeSet.remove(15), treeSet.remove(15));
+        assertEquals(myTreeSet.remove(50), treeSet.remove(50));
+        treeSet.add(50);
+        myTreeSet.add(50);
+        assertEquals(myTreeSet.remove(50), treeSet.remove(50));
+
+        assertThrows(NullPointerException.class, () -> myTreeSet.remove(null));
+        assertThrows(NullPointerException.class, () -> treeSet.remove(null));
+    }
 }
