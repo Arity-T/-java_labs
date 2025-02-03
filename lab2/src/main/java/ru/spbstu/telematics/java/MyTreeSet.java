@@ -34,9 +34,7 @@ public class MyTreeSet<E extends Comparable<E>> {
 
         while (currentNode != null) {
             int cmp = element.compareTo(currentNode.value);
-            if (cmp == 0) {
-                return false;
-            } 
+            if (cmp == 0) return false;
             parentNode = currentNode;
             currentNode = cmp < 0 ? currentNode.left : currentNode.right;
         }
