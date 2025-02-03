@@ -1,13 +1,12 @@
 package ru.spbstu.telematics.java;
 
-/**
- * Hello world!
- *
- */
 public class App 
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        MyTreeSet<Integer> tree = new MyTreeSet<>();
+        tree.add(10);
+        tree.add(20);
+        tree.add(5);
     }
 }
