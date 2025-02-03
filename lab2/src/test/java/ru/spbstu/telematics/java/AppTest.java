@@ -1,38 +1,25 @@
 package ru.spbstu.telematics.java;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Unit test for simple App.
- */
-public class AppTest 
-    extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
+import java.util.TreeSet;
+
+class MyTreeSetTests {
+    MyTreeSet<Integer> myTreeSet;
+    TreeSet<Integer> treeSet;
+
+    @BeforeEach
+    void setUp() {
+        myTreeSet = new MyTreeSet<>();
+        treeSet = new TreeSet<>();
     }
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
-
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
+    @Test
+    void testAdd() {
+        assertEquals(myTreeSet.add(150), treeSet.add(150));
+        assertEquals(myTreeSet.add(200), treeSet.add(200));
+        assertEquals(myTreeSet.add(150), treeSet.add(150));
     }
 }
