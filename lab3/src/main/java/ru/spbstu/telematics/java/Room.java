@@ -13,6 +13,10 @@ public class Room implements Runnable {
         return temperature;
     }
 
+    public synchronized void adjustTemperature(double delta) {
+        this.temperature += delta;
+    }
+
     // Относительная влажность в процентах
     private volatile double humidity = 0.5;
 

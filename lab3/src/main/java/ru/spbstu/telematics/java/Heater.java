@@ -1,15 +1,48 @@
 package ru.spbstu.telematics.java;
 
+import java.util.Random;
+
 /* 
  * Симулирует нагреватель, установленный в комнате. Может изменять поля комнаты, 
  * а именно - увеличивать температуру в ней.
  */
 public class Heater implements Runnable {
-    Room room;
-    private boolean isOn;
+    private Room room;
 
-	@Override
-	public void run() {
-
+    public Heater(Room room) {
+		this.room = room;
 	}
+
+	private volatile boolean isOn;
+
+    public void turnOn() {
+        this.isOn = true;
+    }
+
+    public void turnOff() {
+        this.isOn = false;
+    }
+
+    private Random random = new Random();
+    private double temperatureMaxStep = 1;
+    private long maxStepTimeMs = 3000;
+
+
+    @Override
+    public void run() {
+        while (!Thread.interrupted()) {
+            if (isOn) room.adjustTemperature(random.nextDouble() * temperatureMaxStep);
+
+            try {
+                Thread.sleep(getStepTime());
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+
+    private long getStepTime() {
+        // Спим от 0.5 * maxStepTimeMs до maxSteTimeMs миллисекунд
+        return (long) (random.nextDouble() * 0.5 + 0.5) * maxStepTimeMs;
+    }
 }
