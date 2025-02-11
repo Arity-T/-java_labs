@@ -3,9 +3,8 @@ package ru.spbstu.telematics.java;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-
 public class RoomTests {
-    /* 
+    /*
      * Проверяет, что температура и влажность изменяются со временем.
      */
     @Test
@@ -16,7 +15,7 @@ public class RoomTests {
 
         Thread thread = new Thread(room);
         thread.start();
-        Thread.sleep(5000); 
+        Thread.sleep(5000);
 
         assertNotEquals(initialTemperature, room.getTemperature());
         assertNotEquals(initialHumidity, room.getHumidity());

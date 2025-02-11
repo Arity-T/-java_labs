@@ -20,8 +20,8 @@ public class HeaterTests {
         heaterThread = new Thread(heater);
     }
 
-    /* 
-     * Проверяет, что включенный нагреватель увеличивает температуру в комнате 
+    /*
+     * Проверяет, что включенный нагреватель увеличивает температуру в комнате
      * и при этом не изменяет влажность.
      */
     @Test
@@ -38,10 +38,9 @@ public class HeaterTests {
         heaterThread.join();
     }
 
-    
-    /* 
+    /*
      * Проверяет, что выключенный нагреватель не изменяет температуру и влажность
-     * в комнате. 
+     * в комнате.
      */
     @Test
     public void testHeaterOff() throws InterruptedException {

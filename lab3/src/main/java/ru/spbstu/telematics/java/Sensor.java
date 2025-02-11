@@ -11,22 +11,22 @@ public class Sensor implements Runnable {
     public Sensor(Room room) {
         this.room = room;
     }
-    
+
     // Температура
     private volatile double temperature;
 
     public double getTemperature() {
-		return temperature;
-	}
+        return temperature;
+    }
 
     // Влажность
-	private volatile double humidity;
+    private volatile double humidity;
 
     public double getHumidity() {
-		return humidity;
-	}
+        return humidity;
+    }
 
-	// Частота считывания значений с сенсоров
+    // Частота считывания значений с сенсоров
     private long updateIntervalMs = 1000;
 
     // Параметры произвольной ошибки измерений сенсоров

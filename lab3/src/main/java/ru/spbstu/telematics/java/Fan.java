@@ -8,8 +8,8 @@ public class Fan implements Runnable {
     Room room;
     private boolean isOn;
 
-	@Override
-	public void run() {
+    @Override
+    public void run() {
 
-	}
+    }
 }

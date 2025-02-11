@@ -24,7 +24,7 @@ public class Room implements Runnable {
         return humidity;
     }
 
-    // Параметры произвольного изменения температуры и влажности в комнате 
+    // Параметры произвольного изменения температуры и влажности в комнате
     private Random random = new Random();
     private double temperatureMaxStep = 1;
     private double humidityMaxStep = 0.05;

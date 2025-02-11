@@ -10,10 +10,10 @@ public class Heater implements Runnable {
     private Room room;
 
     public Heater(Room room) {
-		this.room = room;
-	}
+        this.room = room;
+    }
 
-	private volatile boolean isOn;
+    private volatile boolean isOn;
 
     public void turnOn() {
         this.isOn = true;
@@ -27,11 +27,11 @@ public class Heater implements Runnable {
     private double temperatureMaxStep = 1;
     private long maxStepTimeMs = 3000;
 
-
     @Override
     public void run() {
         while (!Thread.interrupted()) {
-            if (isOn) room.adjustTemperature(random.nextDouble() * temperatureMaxStep);
+            if (isOn)
+                room.adjustTemperature(random.nextDouble() * temperatureMaxStep);
 
             Utils.sleepRandomTime((long) (maxStepTimeMs * 0.5), maxStepTimeMs);
         }
