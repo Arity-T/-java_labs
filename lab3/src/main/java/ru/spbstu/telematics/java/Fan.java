@@ -15,6 +15,10 @@ public class Fan implements Runnable {
 
     private volatile boolean isOn;
 
+    public boolean isOn() {
+        return isOn;
+    }
+
     public void turnOn() {
         this.isOn = true;
     }

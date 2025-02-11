@@ -7,6 +7,7 @@ package ru.spbstu.telematics.java;
  * комнаты напрямую.
  */
 public class Controller implements Runnable {
+    private Room room;
     private Settings settings;
     private Sensor sensor;
     private Thread sensorThread;
@@ -16,6 +17,7 @@ public class Controller implements Runnable {
     private Thread fanThread;
 
     public Controller(Room room, Settings settings) {
+        this.room = room;
         this.settings = settings;
 
         sensor = new Sensor(room);
@@ -31,23 +33,57 @@ public class Controller implements Runnable {
     private long updateIntervalMs = 500;
     private double tolerance = 0.01;
 
+    private void log(String string) {
+        System.out.printf("[Controller in room %s] %s\n", room.name, string);
+    }
+
     @Override
     public void run() {
         sensorThread.start();
         heaterThread.start();
         fanThread.start();
+        log("Started sensor, heater and fan threads");
 
         while (!Thread.interrupted()) {
-            if (sensor.getTemperature() < settings.getTemperature() * (1 - tolerance)) {
-                heater.turnOn();
+            double currentTemperature = sensor.getTemperature();
+            double desiredTemperature = settings.getTemperature();
+
+            if (currentTemperature < desiredTemperature * (1 - tolerance)) {
+                if (!heater.isOn()) {
+                    log(String.format(
+                            "Turning heater ON (current - %.2fC°, desired %.2fC°)",
+                            currentTemperature,
+                            desiredTemperature));
+                    heater.turnOn();
+                }
             } else {
-                heater.turnOff();
+                if (heater.isOn()) {
+                    log(String.format(
+                            "Turning heater OFF (current - %.2fC°, desired %.2fC°)",
+                            currentTemperature,
+                            desiredTemperature));
+                    heater.turnOff();
+                }
             }
 
-            if (sensor.getHumidity() > settings.getHumidity() * (1 + tolerance)) {
-                fan.turnOn();
+            double currentHumidity = sensor.getHumidity();
+            double desiredHumidity = settings.getHumidity();
+            if (currentHumidity > desiredHumidity * (1 + tolerance)) {
+                if (!fan.isOn()) {
+                    log(String.format(
+                            "Turning fan ON (current - %.2f%%, desired %.2f%%)",
+                            currentHumidity * 100,
+                            desiredHumidity * 100));
+                    fan.turnOn();
+                }
             } else {
-                fan.turnOff();
+                if (fan.isOn()) {
+                    log(String.format(
+                            "Turning fan OFF (current - %.2f%%, desired %.2f%%)",
+                            currentHumidity * 100,
+                            desiredHumidity * 100));
+                    fan.turnOff();
+                }
             }
 
             Utils.sleep(updateIntervalMs);

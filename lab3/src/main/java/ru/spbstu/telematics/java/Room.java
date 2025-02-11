@@ -6,6 +6,15 @@ import java.util.Random;
  * Симулирует физические процессы, протекающие в команте.
  */
 public class Room implements Runnable {
+    static private int roomCounter;
+
+    public final String name;
+
+    public Room() {
+        roomCounter++;
+        this.name = "#" + roomCounter;
+    }
+
     // Температура измеряется в градусах цельсия
     private volatile double temperature = 24.0;
 
