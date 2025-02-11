@@ -40,11 +40,7 @@ public class Sensor implements Runnable {
             temperature = room.getTemperature() + (random.nextDouble() - 0.5) * 2 * maxTemperatureError;
             humidity = room.getHumidity() + (random.nextDouble() - 0.5) * 2 * maxHumidityError;
 
-            try {
-                Thread.sleep(updateIntervalMs);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+            Utils.sleep(updateIntervalMs);
         }
     }
 }

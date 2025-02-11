@@ -33,16 +33,7 @@ public class Heater implements Runnable {
         while (!Thread.interrupted()) {
             if (isOn) room.adjustTemperature(random.nextDouble() * temperatureMaxStep);
 
-            try {
-                Thread.sleep(getStepTime());
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+            Utils.sleepRandomTime((long) (maxStepTimeMs * 0.5), maxStepTimeMs);
         }
-    }
-
-    private long getStepTime() {
-        // Спим от 0.5 * maxStepTimeMs до maxSteTimeMs миллисекунд
-        return (long) (random.nextDouble() * 0.5 + 0.5) * maxStepTimeMs;
     }
 }
