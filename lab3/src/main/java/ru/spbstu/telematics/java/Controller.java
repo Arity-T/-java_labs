@@ -45,43 +45,41 @@ public class Controller implements Runnable {
         log("Started sensor, heater and fan threads");
 
         while (!Thread.interrupted()) {
-            double currentTemperature = sensor.getTemperature();
+            double realTemperature = room.getTemperature();
+            double sensorTemperature = sensor.getTemperature();
             double desiredTemperature = settings.getTemperature();
 
-            if (currentTemperature < desiredTemperature * (1 - tolerance)) {
+            if (sensorTemperature < desiredTemperature * (1 - tolerance)) {
                 if (!heater.isOn()) {
                     log(String.format(
-                            "Turning heater ON (current - %.2fC°, desired %.2fC°)",
-                            currentTemperature,
-                            desiredTemperature));
+                            "Turning heater ON (real - %.2fC°, sensor - %.2fC°, desired %.2fC°)",
+                            realTemperature, sensorTemperature, desiredTemperature));
                     heater.turnOn();
                 }
             } else {
                 if (heater.isOn()) {
                     log(String.format(
-                            "Turning heater OFF (current - %.2fC°, desired %.2fC°)",
-                            currentTemperature,
-                            desiredTemperature));
+                            "Turning heater OFF (real - %.2fC°, sensor - %.2fC°, desired %.2fC°)",
+                            realTemperature, sensorTemperature, desiredTemperature));
                     heater.turnOff();
                 }
             }
 
-            double currentHumidity = sensor.getHumidity();
+            double realHumidity = room.getHumidity();
+            double sensorHumidity = sensor.getHumidity();
             double desiredHumidity = settings.getHumidity();
-            if (currentHumidity > desiredHumidity * (1 + tolerance)) {
+            if (sensorHumidity > desiredHumidity * (1 + tolerance)) {
                 if (!fan.isOn()) {
                     log(String.format(
-                            "Turning fan ON (current - %.2f%%, desired %.2f%%)",
-                            currentHumidity * 100,
-                            desiredHumidity * 100));
+                            "Turning fan ON (real - %.2f%%, sensor - %.2f%%, desired %.2f%%)",
+                            realHumidity * 100, sensorHumidity * 100, desiredHumidity * 100));
                     fan.turnOn();
                 }
             } else {
                 if (fan.isOn()) {
                     log(String.format(
-                            "Turning fan OFF (current - %.2f%%, desired %.2f%%)",
-                            currentHumidity * 100,
-                            desiredHumidity * 100));
+                            "Turning fan OFF (real - %.2f%%, sensor - %.2f%%, desired %.2f%%)",
+                            realHumidity * 100, sensorHumidity * 100, desiredHumidity * 100));
                     fan.turnOff();
                 }
             }
