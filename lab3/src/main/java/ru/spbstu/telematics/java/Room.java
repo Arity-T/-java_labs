@@ -24,6 +24,10 @@ public class Room implements Runnable {
         return humidity;
     }
 
+    public synchronized void adjustHumidity(double delta) {
+        this.humidity += delta;
+    }
+
     // Параметры произвольного изменения температуры и влажности в комнате
     private Random random = new Random();
     private double temperatureMaxStep = 1;
