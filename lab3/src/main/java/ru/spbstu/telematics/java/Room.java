@@ -45,10 +45,12 @@ public class Room implements Runnable {
 
     @Override
     public void run() {
-        // Пусть температура и влажность произвольно изменяются со временем
+        // Пусть температура и влажность почти произвольно изменяются со временем,
+        // но со временем становится немного холоднее (комната остывает), а влажность
+        // немного растёт (потому что нужно иногда проветривать).
         while (!Thread.interrupted()) {
-            temperature += (random.nextDouble() - 0.5) * 2 * temperatureMaxStep;
-            humidity += (random.nextDouble() - 0.5) * 2 * humidityMaxStep;
+            temperature += (random.nextDouble() - 0.6) * 2 * temperatureMaxStep;
+            humidity += (random.nextDouble() - 0.4) * 2 * humidityMaxStep;
 
             Utils.sleepRandomTime((long) (maxStepTimeMs * 0.5), maxStepTimeMs);
         }
