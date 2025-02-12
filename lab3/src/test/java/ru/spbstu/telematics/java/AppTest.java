@@ -15,7 +15,7 @@ public class AppTest {
     @Test
     void testNoDeadlock() throws InterruptedException {
         Room room = new Room();
-        Settings settings = new Settings(28.0, 0.4);
+        Settings settings = new Settings(room, 28.0, 0.4);
         Controller controller = new Controller(room, settings);
         Thread controllerThread = new Thread(controller);
         Thread roomThread = new Thread(room);
@@ -48,7 +48,7 @@ public class AppTest {
     @Test
     void testNoRaceCondition() throws InterruptedException {
         Room room = new Room();
-        Settings settings = new Settings(25.0, 0.4);
+        Settings settings = new Settings(room, 25.0, 0.4);
         Controller controller = new Controller(room, settings);
         Thread controllerThread = new Thread(controller, "Controller-Thread");
         Thread roomThread = new Thread(room, "Room-Thread");

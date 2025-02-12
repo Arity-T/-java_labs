@@ -6,6 +6,8 @@ import java.util.Random;
  * Симулирует переодическое изменение настроек пользователем. 
  */
 public class Settings implements Runnable {
+    private Room room;
+
     private double temperature;
 
     public double getTemperature() {
@@ -18,24 +20,33 @@ public class Settings implements Runnable {
         return humidity;
     }
 
-    public Settings(double temperature, double humidity) {
+    public Settings(Room room, double temperature, double humidity) {
+        this.room = room;
         this.temperature = temperature;
         this.humidity = humidity;
     }
 
     // Параметры произвольного изменения настроек температуры и влажности в комнате
     private Random random = new Random();
-    private double temperatureMaxStep = 10;
-    private double humidityMaxStep = 0.15;
-    private long maxStepTimeMs = 20000;
+    private double temperatureMaxStep = 6;
+    private double humidityMaxStep = 0.10;
+    private long maxStepTimeMs = 30000;
+
+    private void log(String string) {
+        System.out.printf("[Settings in room %s] %s\n", room.name, string);
+    }
 
     @Override
     public void run() {
         while (!Thread.interrupted()) {
+            Utils.sleepRandomTime((long) (maxStepTimeMs * 0.5), maxStepTimeMs);
+
             temperature += (random.nextDouble() - 0.5) * 2 * temperatureMaxStep;
             humidity += (random.nextDouble() - 0.5) * 2 * humidityMaxStep;
 
-            Utils.sleepRandomTime((long) (maxStepTimeMs * 0.5), maxStepTimeMs);
+            log(String.format(
+                    "Changed to temperature %.2fC°, humidity %.2f%%",
+                    temperature, humidity));
         }
     }
 }
