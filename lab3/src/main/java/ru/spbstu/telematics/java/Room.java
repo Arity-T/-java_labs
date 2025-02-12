@@ -39,9 +39,9 @@ public class Room implements Runnable {
 
     // Параметры произвольного изменения температуры и влажности в комнате
     private Random random = new Random();
-    private double temperatureMaxStep = 1;
-    private double humidityMaxStep = 0.05;
-    private long maxStepTimeMs = 3000;
+    private double temperatureMaxStep = 0.12; // примерно 0.5% от средних значений
+    private double humidityMaxStep = 0.003;
+    private long maxStepTimeMs = 500;
 
     @Override
     public void run() {

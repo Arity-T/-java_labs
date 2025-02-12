@@ -28,8 +28,8 @@ public class Heater implements Runnable {
     }
 
     private Random random = new Random();
-    private double temperatureMaxStep = 1;
-    private long maxStepTimeMs = 3000;
+    private double temperatureMaxStep = 0.25;
+    private long maxStepTimeMs = 500;
 
     @Override
     public void run() {

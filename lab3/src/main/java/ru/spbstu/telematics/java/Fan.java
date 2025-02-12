@@ -28,8 +28,8 @@ public class Fan implements Runnable {
     }
 
     private Random random = new Random();
-    private double humidityMaxStep = 0.03;
-    private long maxStepTimeMs = 3000;
+    private double humidityMaxStep = 0.005;
+    private long maxStepTimeMs = 500;
 
     @Override
     public void run() {
