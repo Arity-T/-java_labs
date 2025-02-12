@@ -7,9 +7,14 @@ public class App {
         Locale.setDefault(Locale.ENGLISH);
 
         Room room = new Room();
-        Settings settings = new Settings(28, 0.4);
+        Thread roomThread = new Thread(room);
+        Settings settings = new Settings(room, 28, 0.4);
+        Thread settingsThread = new Thread(settings);
         Controller controller = new Controller(room, settings);
         Thread controllerThread = new Thread(controller);
+
+        roomThread.start();
+        settingsThread.start();
         controllerThread.start();
     }
 }
